@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iniciar Sesión - Sabores del Sur</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-color: #F5E0C3;
+      --card-color: #FFFFFF;
+      --accent-color: #D94E1F;
+      --text-dark: #5B3A29;
+      --text-muted: #8a7a70;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: var(--bg-color);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .card {
+      background-color: var(--card-color);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 24px;
+      width: 360px;
+    }
+    .logo {
+      width: 60px;
+      height: 60px;
+      background-color: var(--accent-color);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      font-size: 24px;
+      margin: 0 auto 10px;
+    }
+    h1 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 24px;
+      text-align: center;
+      color: var(--text-dark);
+    }
+    p {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--text-dark);
+      font-weight: 500;
+      font-size: 14px;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      margin-bottom: 14px;
+      font-size: 14px;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: var(--accent-color);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
+    .google-btn {
+      background-color: white;
+      color: #5B3A29;
+      border: 1px solid #ddd;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .google-btn img {
+      width: 18px;
+      height: 18px;
+    }
+    .register-link {
+      text-align: center;
+      font-size: 14px;
+      margin-top: 12px;
+    }
+    .register-link a {
+      color: var(--accent-color);
+      text-decoration: none;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="logo">🍽</div>
+    <h1>Sabores del Sur</h1>
+    <p>Bienvenido de nuevo</p>
+    <form>
+      <label for="email">Correo electrónico</label>
+      <input type="email" id="email" placeholder="ejemplo@correo.com" required>
+
+      <label for="password">Contraseña</label>
+      <input type="password" id="password" placeholder="Tu contraseña" required>
+
+      <button type="submit">INICIAR SESIÓN</button>
+
+      <button type="button" class="google-btn">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google Logo">
+        Iniciar sesión con Google
+      </button>
+    </form>
+
+    <div class="register-link">
+      ¿No tienes cuenta? <a href="#">Regístrate</a>
+    </div>
+  </div>
+
+</body>
+</html>
+

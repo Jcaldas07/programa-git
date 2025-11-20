@@ -1,0 +1,163 @@
+App.jsx
+
+import React, { useEffect, useState } from "react";
+import { CartProvider } from "./context/CartContext";
+import { getProducts } from "./api/products";
+import { getCart } from "./api/cart";
+import ProductList from "./components/ProductList";
+import CartDrawer from "./components/CartDrawer";
+
+function App() {
+  const [products, setProducts] = useState([]);
+  const [cart, setCart] = useState([]);
+
+  useEffect(() => {
+    async function fetchProducts() {
+      try {
+        const data = await getProducts();
+        setProducts(data);
+      } catch (err) {
+        console.error("Error cargando productos:", err.message);
+      }
+    }
+    fetchProducts();
+  }, []);
+
+  useEffect(() => {
+    async function fetchCart() {
+      try {
+        const data = await getCart();
+        setCart(data);
+      } catch (err) {
+        console.error("Error cargando carrito:", err.message);
+      }
+    }
+    fetchCart();
+  }, []);
+
+  return (
+    <CartProvider>
+      <div>
+        <h1>Mi Tienda</h1>
+        <ProductList products={products} />
+        <CartDrawer cart={cart} />
+      </div>
+    </CartProvider>
+  );
+}
+
+export default App;
+
+
+//////////////////////////////////
+
+context/CartContext.jsx
+
+
+import React, { createContext, useContext, useState } from "react";
+
+const CartContext = createContext();
+
+export function CartProvider({ children }) {
+  const [cart, setCart] = useState([]);
+
+  const addToCart = (product) => {
+    setCart((prevCart) => [...prevCart, product]);
+  };
+
+  const removeFromCart = (id) => {
+    setCart((prevCart) => prevCart.filter((item) => item.id !== id));
+  };
+
+  return (
+    <CartContext.Provider value={{ cart, addToCart, removeFromCart }}>
+      {children}
+    </CartContext.Provider>
+  );
+}
+
+export function useCart() {
+  return useContext(CartContext);
+}
+
+
+///////////////////////////////////
+
+
+components/ProductList.jsx
+
+
+import React from "react";
+import ProductCard from "./ProductCard";
+
+function ProductList({ products }) {
+  return (
+    <div>
+      <h2>Productos</h2>
+      <div style={{ display: "flex", flexWrap: "wrap" }}>
+        {products.map((product) => (
+          <ProductCard key={product.id} product={product} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export default ProductList;
+
+
+/////////////////////////////////////////
+
+
+components/CartDrawer.jsx
+
+
+import React from "react";
+import { useCart } from "../context/CartContext";
+
+function CartDrawer() {
+  const { cart, removeFromCart } = useCart();
+
+  return (
+    <div style={{ borderTop: "2px solid black", marginTop: 20, paddingTop: 10 }}>
+      <h2>Carrito</h2>
+      {cart.length === 0 ? (
+        <p>El carrito está vacío</p>
+      ) : (
+        cart.map((item) => (
+          <div key={item.id} style={{ marginBottom: 10 }}>
+            <span>{item.name} - ${item.price}</span>
+            <button onClick={() => removeFromCart(item.id)}>Eliminar</button>
+          </div>
+        ))
+      )}
+    </div>
+  );
+}
+
+export default CartDrawer;
+
+
+/////////////////////////////////////////////////////
+
+
+api/products.js
+
+
+export async function getProducts() {
+  return [
+    { id: 1, name: "Producto 1", price: 100 },
+    { id: 2, name: "Producto 2", price: 200 },
+    { id: 3, name: "Producto 3", price: 300 },
+  ];
+}
+
+
+////////////////////////////////////////////////////////
+
+api/cart.js
+
+
+export async function getCart() {
+  return [];
+}
